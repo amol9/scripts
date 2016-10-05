@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sqlite3 `find ~/.mozilla/firefox -mindepth 1 -maxdepth 1 -type d -name *default*`/places.sqlite "SELECT url FROM moz_places;" | grep -Po "^http(s)?://(([a-zA-Z](-?[a-zA-Z0-9])*)\.)*[a-zA-Z](-?[a-zA-Z0-9])+\.[a-zA-Z]{2,}" | grep -Po "\..*?\." | tr -d . | sort | uniq -c | sort -n -r | head -n 10 | awk '{if (length($2)>9) e=".."; else e=""; printf "%s %s%s\n", $1, substr($2,1,9), e}' | gnuplot -e "set terminal wxt size 800, 300 title 'Top Hits'; set boxwidth 0.3; set ylabel 'hits'; plot '<cat' using 1:xtic(2) with boxes fill solid lc rgb '#3B5998' title '`sqlite3 -separator ' ' \`find ~/.mozilla/firefox -mindepth 1 -maxdepth 1 -type d -name *default*\`/places.sqlite "select min(last_visit_date)/1000000, max(last_visit_date)/1000000 from moz_places;" | awk 'function d(t){return system("date +%d-%b-%Y --date=@" t)} {d($1) d($2)}' |  awk -vFS="\n" -vRS= '{print $1, "to", $2}'`'" -p
+
