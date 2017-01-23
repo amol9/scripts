@@ -1,0 +1,2 @@
+Get-Reddit-Score	"Get title, score and comments status of a reddit post."	https://raw.githubusercontent.com/amol9/scripts/master/reddit/get_reddit_score.ps1
+Vdo-Wallp	"Set desktop wallpaper from a video/gif/webm on disk or on the Internet."	https://raw.githubusercontent.com/amol9/scripts/master/wallpaper/vdo_wallp.ps1
