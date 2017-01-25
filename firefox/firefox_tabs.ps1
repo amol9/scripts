@@ -1,4 +1,4 @@
-.bluelib.ps1
+. $PSScriptRoot\bluelib.ps1
 
 function Firefox-Tabs() {
 	[CmdletBinding()]
@@ -45,7 +45,7 @@ function Firefox-Tabs() {
 		
 		function Filter-Tab ($t, $u) {
 			$f = [regex]::Match($t, "(?i)$title").Success -and [regex]::Match($u, "(?i)$url").Success
-			$b = ! (!$blank -and [regex]::Match($url, "about:.*").Success)
+			$b = ! (!$blank -and [regex]::Match($u, "about:.*").Success)
 			$f -and $b
 		}
 		Main
